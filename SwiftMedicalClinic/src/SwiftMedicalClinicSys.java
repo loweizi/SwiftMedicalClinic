@@ -83,7 +83,7 @@ public class SwiftMedicalClinicSys extends Application {
         
         //text fields and their adjustments
         TextField usernameField = new TextField();
-        usernameField.setPromptText("Username/Email");
+        usernameField.setPromptText("Email");
         usernameField.setMaxWidth(300);
         usernameField.setPadding(new Insets(10, 10, 10, 10));
         PasswordField passwordField = new PasswordField();
@@ -163,7 +163,7 @@ public class SwiftMedicalClinicSys extends Application {
         
         //text fields and their adjustments
         TextField usernameField = new TextField();
-        usernameField.setPromptText("Username/Email");
+        usernameField.setPromptText("Email");
         usernameField.setMaxWidth(300);
         usernameField.setPadding(new Insets(10, 10, 10, 10));
         TextField associateIDField = new TextField();
@@ -698,6 +698,77 @@ public class SwiftMedicalClinicSys extends Application {
     	//pane holding all the other panes of associate home page screen
         BorderPane AppointmentsPane = new BorderPane();
         AppointmentsPane.setPadding(new Insets(30));
+        
+        HBox MainPane = new HBox();
+        VBox LeftPane = new VBox();
+        
+        Label patientName = new Label("(Patient's Name");
+        patientName.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
+        Label weight = new Label("Weight:");
+        weight.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        Label height = new Label("Height:");
+        height.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        Label bodyTemp = new Label("Body Temperature:");
+        bodyTemp.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        Label bloodPressure = new Label("Blood Pressure:");
+        bloodPressure.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        
+        TextField weightText = new TextField("Weight");
+        TextField heightText = new TextField("Height");
+        TextField bodyTempText = new TextField("Body Temperature");
+        TextField bloodPressureText = new TextField("Blood Pressure");
+        
+        LeftPane.setSpacing(40);
+        LeftPane.setAlignment(javafx.geometry.Pos.CENTER); 
+        LeftPane.getChildren().addAll(patientName, weight, weightText, height, 
+        		heightText, bodyTemp, bodyTempText, bloodPressure, bloodPressureText);
+        
+        HBox HistoryPane = new HBox();
+        HistoryPane.setStyle("-fx-border-color: black");
+        
+        Label medPrescribed = new Label("Medicine Prescribed:");
+        medPrescribed.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        Label PrevHealth = new Label("Previous Health Issues:");
+        PrevHealth.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        Label Immunization = new Label("Immunization History:");
+        Immunization.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        
+        Text medPrescribedText = new Text();
+        medPrescribedText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        Text PrevHealthText = new Text();
+        PrevHealthText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        Text ImmunizationText = new Text();
+        ImmunizationText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        
+        Button TakeTest = new Button("Take Physical Test");
+        TakeTest.setMaxWidth(80);
+        TakeTest.setPadding(new Insets(10, 10, 10, 10));
+        
+        VBox history1 = new VBox();
+        VBox history2 = new VBox();
+        VBox history3 = new VBox();
+        
+        history1.setSpacing(15);
+        history1.setAlignment(javafx.geometry.Pos.CENTER); 
+        history1.getChildren().addAll(medPrescribed, medPrescribedText, TakeTest);
+        
+        history2.setSpacing(15);
+        history2.setAlignment(javafx.geometry.Pos.CENTER); 
+        history2.getChildren().addAll(PrevHealth, PrevHealthText);
+        
+        history3.setSpacing(15);
+        history3.setAlignment(javafx.geometry.Pos.CENTER); 
+        history3.getChildren().addAll(Immunization, ImmunizationText);
+        
+        HistoryPane.setSpacing(40);
+        HistoryPane.setAlignment(javafx.geometry.Pos.CENTER); 
+        HistoryPane.getChildren().addAll(history1, history2, history3);
+   
+        MainPane.setSpacing(40);
+        MainPane.setAlignment(javafx.geometry.Pos.CENTER); 
+        MainPane.getChildren().addAll(LeftPane, TakeTest);
+        
+        AppointmentsPane.setCenter(MainPane);
         
         
         return AppointmentsPane;
