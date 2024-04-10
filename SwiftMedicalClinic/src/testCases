@@ -1,0 +1,58 @@
+//this code into the create each page scene at the top
+
+GridPane grid = testCases();
+testCases = new Scene(grid, 900, 600);
+
+//testCase GridPanes
+
+private GridPane testCases() {
+    	GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(20);
+        grid.setVgap(10); 
+        grid.setPadding(new Insets(25, 25, 25, 25)); 
+
+        // Title 
+        Label titleLabel = new Label("Physical Test Assessment");
+        titleLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+        GridPane.setHalignment(titleLabel, HPos.CENTER);
+        
+        titleLabel.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
+        GridPane.setConstraints(titleLabel, 0, 0, 3, 1); 
+
+        // Findings Text Area
+        Label findingsLabel = new Label("Enter Findings:");
+        TextArea findingsInput = new TextArea();
+        findingsLabel.setFont(Font.font("Tahoma",10));
+        findingsInput.setPrefHeight(200);
+        GridPane.setConstraints(findingsLabel, 0, 1); 
+        GridPane.setConstraints(findingsInput, 0, 2); 
+
+        //Medicine Text Label
+        Label medicineLabel = new Label("Medicine to Prescribe:");
+        TextArea medicineInput = new TextArea();
+        medicineLabel.setFont(Font.font("Tahoma",10));
+        medicineInput.setPrefHeight(200);
+        GridPane.setConstraints(medicineLabel, 1, 1); 
+        GridPane.setConstraints(medicineInput, 1, 2); 
+
+        //Rec Text Area
+        Label recommendationsLabel = new Label("Recommendations:");
+        TextArea recommendationsInput = new TextArea();
+        recommendationsLabel.setFont(Font.font("Tahoma",10));
+        recommendationsInput.setPrefHeight(200);
+        GridPane.setConstraints(recommendationsLabel, 2, 1); 
+        GridPane.setConstraints(recommendationsInput, 2, 2); 
+
+        //Submit Button
+        Button submitButton = new Button("Submit");
+        submitButton.setStyle("-fx-font-size: 16px;");
+        submitButton.setFont(Font.font("Tahoma",0));
+        GridPane.setHalignment(submitButton, HPos.CENTER);
+        GridPane.setConstraints(submitButton, 0, 3, 3, 1); 
+
+        
+        grid.getChildren().addAll(titleLabel, findingsLabel, findingsInput, medicineLabel, medicineInput, recommendationsLabel, recommendationsInput, submitButton);
+
+        return grid;
+    }
