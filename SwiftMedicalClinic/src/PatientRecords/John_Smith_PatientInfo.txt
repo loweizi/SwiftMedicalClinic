@@ -1,0 +1,7 @@
+First Name: John
+Last Name: Smith
+DOB: 01/01/2001
+SSN: 123456789
+Email: Jsmith@gmail.com
+Phone Number: 1234567890
+Password: Password

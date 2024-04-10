@@ -1,12 +1,11 @@
 
 public class Associates {
-	private String firstName, lastName, DOB, SSN, email, phoneNum, password;
-	private int associateID;
+	private String firstName, lastName, associateID, DOB, SSN, email, phoneNum, password;
 
     public Associates(){
         firstName = "";
         lastName = "";
-        associateID = 0;
+        associateID = "";
         DOB = "";
         SSN = "";
         email = "";
@@ -15,7 +14,7 @@ public class Associates {
     }
     
     //patient constructor identifying the object
-    public Associates(String firstName, String lastName, int associateID, String DOB, String SSN, String email, String phoneNum, String password){
+    public Associates(String firstName, String lastName, String associateID, String DOB, String SSN, String email, String phoneNum, String password){
         this.firstName = firstName;
         this.lastName = lastName;
         this.associateID = associateID;
@@ -35,7 +34,7 @@ public class Associates {
     	this.lastName = lastName;
     }
     
-    public void setID(int associateID) {
+    public void setID(String associateID) {
     	this.associateID = associateID;
     }
     
@@ -67,7 +66,7 @@ public class Associates {
         return lastName;
     }
     
-    public int getID(){
+    public String getID(){
         return associateID;
     }
     

@@ -1,6 +1,7 @@
 
 public class Patient {
 	private String firstName, lastName, DOB, SSN, email, phoneNum, password;
+	private int count;
 
     public Patient(){
         firstName = "";
@@ -10,10 +11,11 @@ public class Patient {
         email = "";
         phoneNum = "";
         password = "";
+        count = 0;
     }
     
     //patient constructor identifying the object
-    public Patient(String firstName, String lastName, String DOB, String SSN, String email, String phoneNum, String password){
+    public Patient(String firstName, String lastName, String DOB, String SSN, String email, String phoneNum, String password, int count){
         this.firstName = firstName;
         this.lastName = lastName;
         this.DOB = DOB;
@@ -21,6 +23,7 @@ public class Patient {
         this.email = email;
         this.phoneNum = phoneNum;
         this.password = password;
+        this.count = count;
     }
     
     //setters and getters
@@ -51,6 +54,10 @@ public class Patient {
     public void setPassword(String password) {
     	this.password = password;
     }
+    
+    public void setCount(int count) {
+    	this.count = count;
+    }
 
     public String getFirstName(){
         return firstName;
@@ -78,5 +85,9 @@ public class Patient {
     
     public String getPassword(){
         return password;
+    }
+    
+    public int getCount(){
+        return count;
     }
 }

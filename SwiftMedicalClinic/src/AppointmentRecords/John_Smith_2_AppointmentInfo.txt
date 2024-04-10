@@ -1,0 +1,12 @@
+Email: Jsmith@gmail.com
+Weight: 150 lbs
+Height: 5' 9"
+Body Temperature: 99 F
+Blood Pressure: 100
+Medication: N/A
+Previous Health: N/A
+Immunization: N/A
+Findings: Headache
+To Be Medicine: Pain Relievers
+Reccomendations: Drink Water
+Doctor: IHill

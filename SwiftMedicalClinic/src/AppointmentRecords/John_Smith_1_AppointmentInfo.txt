@@ -1,0 +1,10 @@
+Weight: 115lbs
+Height: 5' 6"
+Body Temperature: 100
+Blood Pressure: 100
+Medication: N/A
+Previous Health: N/A
+Immunization: N/A
+Findings: N/A
+To Be Medicine: Pain Relievers
+Reccomendations: N/A

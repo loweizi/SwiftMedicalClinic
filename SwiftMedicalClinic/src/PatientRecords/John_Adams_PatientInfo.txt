@@ -1,0 +1,8 @@
+First Name: John
+Last Name: Adams
+DOB: 02/03/2004
+SSN: 222-22-2222
+Email: JohnAdams@gmail.com
+Phone Number: 222-222-2222
+Password: JAdams
+Count: 0
