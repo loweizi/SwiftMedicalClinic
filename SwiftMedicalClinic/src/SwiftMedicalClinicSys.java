@@ -47,6 +47,11 @@ public class SwiftMedicalClinicSys extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Swift Medical Clinic System");
+        
+        //loading in files
+        loadPatientFiles();
+    	loadAssociatesFiles();
+    	loadAppointmentFiles();
 
         //create each page screen
         BorderPane loginPanePL = LoginPanePL();
@@ -70,10 +75,6 @@ public class SwiftMedicalClinicSys extends Application {
     }
 
     private BorderPane LoginPanePL() {
-    	
-    	loadPatientFiles();
-    	loadAssociatesFiles();
-    	loadAppointmentFiles();
     	
     	//pane holding all the other panes of patient login screen
         BorderPane PatientLoginPane = new BorderPane();
@@ -110,7 +111,6 @@ public class SwiftMedicalClinicSys extends Application {
         PLbuttonPane.setSpacing(100);
         PLbuttonPane.setAlignment(javafx.geometry.Pos.CENTER);
         
-        //(e -> primaryStage.setScene(PatientPortalScene));
         //buttons and their adjustments
         Button loginButton = new Button("Login");
         loginButton.setMaxWidth(400);
@@ -120,6 +120,7 @@ public class SwiftMedicalClinicSys extends Application {
         	String password = passwordField.getText();
         	Patient user = findPatient(email, password);
         	
+        	//if they cant find patient info/empty fields
         	if(user == null || 
         			usernameField.getText().isEmpty() || 
         			passwordField.getText().isEmpty()) {
@@ -131,6 +132,7 @@ public class SwiftMedicalClinicSys extends Application {
         	//else if everything goes smoothly...
         	else if(user != null){
         		
+        		//switch to patient portal
         		BorderPane PatientPortalPane = PatientPortalPane(user);
                 PatientPortalScene = new Scene(PatientPortalPane, 900, 600);
         		primaryStage.setScene(PatientPortalScene);
@@ -146,6 +148,7 @@ public class SwiftMedicalClinicSys extends Application {
         loginButton.setPadding(new Insets(10, 10, 10, 10));
         Button associateLoginButton = new Button("Associate Login");
         associateLoginButton.setOnAction(e -> {
+        	//clear everything and switch to associate's login screen
         	usernameField.clear();
     		passwordField.clear();
     		
@@ -260,6 +263,7 @@ public class SwiftMedicalClinicSys extends Application {
         	System.out.println(user.getFirstName());
         	
         	if(user == null ||
+        			//if they couldnt find associate/fields are empty
         			usernameField.getText().isEmpty() ||
         			associateIDField.getText().isEmpty() ||
         			passwordField.getText().isEmpty()) {
@@ -290,6 +294,7 @@ public class SwiftMedicalClinicSys extends Application {
         loginButton.setPadding(new Insets(10, 10, 10, 10));
         Button patientLoginButton = new Button("Patient Login");
         patientLoginButton.setOnAction(e -> {
+        	//clear everything and go to patient login screen
         	usernameField.clear();
     		associateIDField.clear();
     		passwordField.clear();
@@ -466,6 +471,8 @@ public class SwiftMedicalClinicSys extends Application {
         //buttons and their adjustments
         Button backToLogin = new Button("Back to Login");
         backToLogin.setOnAction(e -> {
+        	
+        	//clear everything and go back to login
         	fNameField.clear();
         	lNameField.clear();
         	DOBpicker.clear();
@@ -485,11 +492,13 @@ public class SwiftMedicalClinicSys extends Application {
         Button createAccButton = new Button("Create Account");
         createAccButton.setOnAction(e -> {
         	
+        	//checking if password and confirm password are the same
         	if(passwordField.getText().compareTo(CpasswordField.getText()) != 0) {
         		passwordField.setStyle("-fx-control-inner-background: #E34234"); 
         		CpasswordField.setStyle("-fx-control-inner-background: #E34234");
         	}
         	
+        	//if they are the same and no fields are empty then create a new patient
         	if(passwordField.getText().compareTo(CpasswordField.getText()) == 0 && 
         			!fNameField.getText().isEmpty() &&
         			!lNameField.getText().isEmpty() &&
@@ -499,7 +508,7 @@ public class SwiftMedicalClinicSys extends Application {
         			!phoneNumField.getText().isEmpty() &&
         			!passwordField.getText().isEmpty()) {
         		
-        		currentPatient = new Patient();
+        		Patient currentPatient = new Patient();
             	currentPatient.setFirstName(fNameField.getText());
             	currentPatient.setLastName(lNameField.getText());
             	currentPatient.setDOB(DOBpicker.getText());
@@ -511,6 +520,7 @@ public class SwiftMedicalClinicSys extends Application {
             	passwordField.setStyle("-fx-control-inner-background: white"); 
             	CpasswordField.setStyle("-fx-control-inner-background: white");
             	
+            	//save patient into file system
             	savePatientFile(currentPatient);
                 patientList.add(currentPatient);
             	
@@ -664,6 +674,7 @@ public class SwiftMedicalClinicSys extends Application {
         //buttons and their adjustments
         Button backToLogin = new Button("Back to Login");
         backToLogin.setOnAction(e -> {
+        	//clear everything and go back to login
         	fNameField.clear();
         	lNameField.clear();
         	associateIDField.clear();
@@ -684,11 +695,13 @@ public class SwiftMedicalClinicSys extends Application {
         Button AssoCreateAccButton = new Button("Create Account");
         AssoCreateAccButton.setOnAction(e -> {
         	
+        	//checking is password and confirm password are the same
         	if(passwordField.getText().compareTo(CpasswordField.getText()) != 0) {
         		passwordField.setStyle("-fx-control-inner-background: #E34234"); 
         		CpasswordField.setStyle("-fx-control-inner-background: #E34234");
         	}
         	
+        	//if they are and no text fields are empty then create a new associate
         	if(passwordField.getText().compareTo(CpasswordField.getText()) == 0 && 
         			!fNameField.getText().isEmpty() &&
         			!lNameField.getText().isEmpty() &&
@@ -699,7 +712,7 @@ public class SwiftMedicalClinicSys extends Application {
         			!phoneNumField.getText().isEmpty() &&
         			!passwordField.getText().isEmpty()) {
         		
-        		currentAssociate = new Associates();
+        		Associates currentAssociate = new Associates();
         		currentAssociate.setFirstName(fNameField.getText());
         		currentAssociate.setLastName(lNameField.getText());
         		currentAssociate.setID(associateIDField.getText());
@@ -709,6 +722,7 @@ public class SwiftMedicalClinicSys extends Application {
         		currentAssociate.setPhoneNum(phoneNumField.getText());
         		currentAssociate.setPassword(passwordField.getText());
             	
+        		//save associate to file system
             	saveAssociateFile(currentAssociate);
                 AssList.add(currentAssociate);
             	
@@ -788,11 +802,23 @@ public class SwiftMedicalClinicSys extends Application {
         //buttons and their adjustments
         Button backToLogin = new Button("Back to Login");
         backToLogin.setOnAction(e -> primaryStage.setScene(loginScenePL));
-        	//make method to make it go back to prev screen
         backToLogin.setMaxWidth(400);
         backToLogin.setPadding(new Insets(10, 10, 10, 10));
         Button sendEmail = new Button("Send Email");
-        	//make method to send email
+        sendEmail.setOnAction(e -> {
+        	
+        	//if the field is empty show red
+        	if(FPtextfield.getText().isEmpty()){
+        		FPtextfield.setStyle("-fx-control-inner-background: #E34234"); 
+        	}
+        	else {
+        		//else go back to login screen (not implemented)
+        		FPtextfield.setStyle("-fx-control-inner-background: #E34234"); 
+        		FPtextfield.clear();
+        		
+        		primaryStage.setScene(loginScenePL);
+        	}
+        });
         sendEmail.setMaxWidth(400);
         sendEmail.setPadding(new Insets(10, 10, 10, 10));
         
@@ -819,8 +845,10 @@ public class SwiftMedicalClinicSys extends Application {
         BorderPane PatientPortalPane = new BorderPane();
         PatientPortalPane.setPadding(new Insets(30));
         
+        //testing purposes
         System.out.println(user.getFirstName());
         
+        //if there is a patient that exists
         if(user != null) {
         	//-----------------------------------------------------------------
             //creating and adding title onto main PL pane
@@ -837,6 +865,7 @@ public class SwiftMedicalClinicSys extends Application {
             PrevVisitsPane.setPadding(new Insets(30));
             PrevVisitsPane.setStyle("-fx-border-color: black");
             
+            //box for list of appointments
             VBox Apps = new VBox();
             Apps.setSpacing(15);
             
@@ -844,6 +873,8 @@ public class SwiftMedicalClinicSys extends Application {
             PrevVisitsTitle.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
             BorderPane.setAlignment(PrevVisitsTitle, javafx.geometry.Pos.CENTER);
             
+            //if they can find any appointments under their name, display it as a clickable
+            //link to view that appointment info
             if (findAppointment(user.getEmail())) {
             	for(int i = 0; i < PatientAppList.size(); i++) {
                     
@@ -869,7 +900,7 @@ public class SwiftMedicalClinicSys extends Application {
             PrevVisitsPane.setCenter(Apps);
             
             //-----------------------------------------------------------------
-            //creating right pane (messages) 
+            //creating right pane (changing account info) 
             BorderPane ChangeInfo = new BorderPane();
             ChangeInfo.setPrefSize(400, 250);
             ChangeInfo.setPadding(new Insets(30));
@@ -895,6 +926,7 @@ public class SwiftMedicalClinicSys extends Application {
             
             Button save = new Button("Save");
             save.setOnAction(e -> {
+            	//saves these changes into the object
             	user.setEmail(question.getText());
             	user.setPhoneNum(question2.getText());
             });
@@ -945,6 +977,7 @@ public class SwiftMedicalClinicSys extends Application {
         BorderPane AssociateHPPane = new BorderPane();
         AssociateHPPane.setPadding(new Insets(30));
         
+        //if the associate exists
         if(user != null) {
         	
         	//creating and adding title onto main PL pane
@@ -970,6 +1003,9 @@ public class SwiftMedicalClinicSys extends Application {
             
             UpAppPane.setTop(UpAppTitle);
             
+            
+            //going through and showing all the patients under the system and once clicked
+            //it will start an appointment for them
             for(int i = 0; i < patientList.size(); i++) {
             	Hyperlink patient = new Hyperlink(patientList.get(i).getFirstName() + patientList.get(i).getLastName());
             	patient.setPadding(new Insets(10, 10, 10, 10));
@@ -987,7 +1023,7 @@ public class SwiftMedicalClinicSys extends Application {
             UpAppPane.setCenter(Apps);
             
             //-----------------------------------------------------------------
-            //creating right pane (messages) 
+            //creating right pane (changing account info) 
             BorderPane ChangeInfo = new BorderPane();
             ChangeInfo.setPrefSize(400, 250);
             ChangeInfo.setPadding(new Insets(30));
@@ -1013,6 +1049,7 @@ public class SwiftMedicalClinicSys extends Application {
             
             Button save = new Button("Save");
             save.setOnAction(e -> {
+            	//saves these changes to the object
             	user.setEmail(question.getText());
             	user.setPhoneNum(question2.getText());
             });
@@ -1031,12 +1068,12 @@ public class SwiftMedicalClinicSys extends Application {
             AssoHPBottPane.setPadding(new Insets(15));
             AssoHPBottPane.setAlignment(javafx.geometry.Pos.BOTTOM_LEFT); 
             
-            //label
+            //dropdown list label
             Label PastAppLabel = new Label("Past Appointments:");
             
             //dropdown list
             ComboBox<Appointments> PastAppList = new ComboBox<Appointments>();
-            
+            //adding the objects to the list
             for(int i = 0; i < AppList.size(); i++) {
             	PastAppList.getItems().add(AppList.get(i));
             	
@@ -1058,6 +1095,7 @@ public class SwiftMedicalClinicSys extends Application {
             //past appointments button
             Button PastAppButton = new Button("Open");
             PastAppButton.setOnAction(e -> {
+            	//opens up the screen for the option chosen
             	Appointments pastAppointment = PastAppList.getValue();
             	
             	BorderPane PastAppointmentsPane = PastAppointmentsPane(pastAppointment);
@@ -1114,9 +1152,11 @@ public class SwiftMedicalClinicSys extends Application {
         BorderPane AppointmentsPane = new BorderPane();
         AppointmentsPane.setPadding(new Insets(30));
         
+        //containers for the subsections inside
         HBox MainPane = new HBox();
         VBox LeftPane = new VBox();
         
+        //labels and textfields for all the vitals info inputs
         Label patientName = new Label(patient.getFirstName() + " " + patient.getLastName());
         patientName.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
         Label weight = new Label("Weight:");
@@ -1140,6 +1180,7 @@ public class SwiftMedicalClinicSys extends Application {
         
         HBox HistoryPane = new HBox();
         
+        //labels and textfields for all the history info
         Label medPrescribed = new Label("Medicine Prescribed:");
         medPrescribed.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
         Label PrevHealth = new Label("Previous Health Issues:");
@@ -1165,7 +1206,8 @@ public class SwiftMedicalClinicSys extends Application {
         
         Button TakeTest = new Button("Take Physical Test");
         TakeTest.setOnAction(e -> {
-        	
+        	//when clicked it will check if all textfields have been entered
+        	//and then create a new appointment object
         	if(!weightText.getText().isEmpty() &&
         			!heightText.getText().isEmpty() &&
         			!bodyTempText.getText().isEmpty() &&
@@ -1193,6 +1235,7 @@ public class SwiftMedicalClinicSys extends Application {
                 PrevHealthText.clear();
                 ImmunizationText.clear();
                 
+                //go to the actual test for doctors
                 GridPane TestPane = TestPane(currentApp);
                 TestScene = new Scene(TestPane, 900, 600);
             	
@@ -1207,6 +1250,7 @@ public class SwiftMedicalClinicSys extends Application {
         TakeTest.setMaxWidth(150);
         TakeTest.setPadding(new Insets(10, 10, 10, 10));
         
+        //formatting
         VBox history1 = new VBox();
         VBox history2 = new VBox();
         VBox history3 = new VBox();
@@ -1385,6 +1429,7 @@ public class SwiftMedicalClinicSys extends Application {
         //buttons and their adjustments
         Button AssoHomeButton = new Button("Back To Home Page");
         AssoHomeButton.setOnAction(e -> {
+        	//goes back to the patient homepage
         	BorderPane PatientPortalPane = PatientPortalPane(pastAppointment.getPatient());
             PatientPortalScene = new Scene(PatientPortalPane, 900, 600);
     		primaryStage.setScene(PatientPortalScene);
@@ -1566,6 +1611,7 @@ public class SwiftMedicalClinicSys extends Application {
         //buttons and their adjustments
         Button AssoHomeButton = new Button("Back To Home Page");
         AssoHomeButton.setOnAction(e -> {
+        	//goes back to associate homepage
         	BorderPane AssociateHPPane = AssociateHPPane(pastAppointment.getAssociate());
             AssociateHPScene = new Scene(AssociateHPPane, 900, 600);
     		primaryStage.setScene(AssociateHPScene);
@@ -1650,6 +1696,7 @@ public class SwiftMedicalClinicSys extends Application {
             Button submitButton = new Button("Save");
             submitButton.setOnAction(e -> {
             	
+            	//checks if all textfields are entered and then saves info to previously passed down object
             	if(!findingsInput.getText().isEmpty() &&
             			!medicineInput.getText().isEmpty() &&
             			!recommendationsInput.getText().isEmpty()) {
@@ -1660,6 +1707,7 @@ public class SwiftMedicalClinicSys extends Application {
             		
             		currentApp.getPatient().setCount(currentApp.getPatient().getCount() + 1);
                 	
+            		//saves appointment to file system
                 	saveAppointmentFile(currentApp);
                     AppList.add(currentApp);
                     
@@ -1688,7 +1736,7 @@ public class SwiftMedicalClinicSys extends Application {
         }
     
     private Patient findPatient(String email, String password) {
-    	//if the list isn't empty, then search until the ID matches 
+    	//if the list isn't empty, then search until the email and password til matches 
     	//and return that patient object
     	if(!patientList.isEmpty()) {
     		for(int i = 0; i < patientList.size(); i++) { 
@@ -1703,8 +1751,8 @@ public class SwiftMedicalClinicSys extends Application {
     
     
     private Associates findAssociate(String email, String associateID, String password) {
-    	//if the list isn't empty, then search until the ID matches 
-    	//and return that patient object
+    	//if the list isn't empty, then search until the email, ID, and password matches 
+    	//and return that associate object
     	if(!AssList.isEmpty()) {
     		for(int i = 0; i < AssList.size(); i++) { 
     	    	if (email.compareTo(AssList.get(i).getEmail()) == 0 && 
@@ -1737,8 +1785,8 @@ public class SwiftMedicalClinicSys extends Application {
     	//folder holding all the files
         File folder = new File("src/AssociateRecords");
         File[] associateFiles = folder.listFiles((dir, name) -> name.endsWith("_AssociateInfo.txt"));
-        //while there are files found, read that patient information
-        //get the patient object, and add it to the patient list
+        //while there are files found, read that associate information
+        //get the associate object, and add it to the associate list
         if (associateFiles != null) {
             for (File file : associateFiles) {
                 Associates associate = readAssociateInfo(file);
@@ -1753,8 +1801,8 @@ public class SwiftMedicalClinicSys extends Application {
     	//folder holding all the files
         File folder = new File("src/AppointmentRecords");
         File[] appointmentFiles = folder.listFiles((dir, name) -> name.endsWith("_AppointmentInfo.txt"));
-        //while there are files found, read that patient information
-        //get the patient object, and add it to the patient list
+        //while there are files found, read that appointment information
+        //get the appointment object, and add it to the appointment list
         if (appointmentFiles != null) {
             for (File file : appointmentFiles) {
                 Appointments appointment = readAppointmentInfo(file);
@@ -1816,8 +1864,8 @@ public class SwiftMedicalClinicSys extends Application {
     }
     
     private boolean findAppointment(String email) {
-    	//if the list isn't empty, then search until the ID matches 
-    	//and return that patient object
+    	//if the list isn't empty, then search until the email matches 
+    	//and return true/false
     	if(!AppList.isEmpty()) {
     		for(int i = 0; i < AppList.size(); i++) { 
     	    	if (email.compareTo(AppList.get(i).getPatient().getEmail()) == 0) {
