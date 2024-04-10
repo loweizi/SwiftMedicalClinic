@@ -692,7 +692,7 @@ public class SwiftMedicalClinicSys extends Application {
         //-----------------------------------------------------------------
         //container for the bottom pane under the two main panes
         VBox AssoHPBottPane = new VBox();
-        AssoHPBottPane.setSpacing(15);
+        AssoHPBottPane.setSpacing(10);
         AssoHPBottPane.setAlignment(javafx.geometry.Pos.BOTTOM_LEFT); 
         
         //label
@@ -704,7 +704,13 @@ public class SwiftMedicalClinicSys extends Application {
         PastAppList.getItems().add("Test2");
         PastAppList.getItems().add("Test3");
         
-        AssoHPBottPane.getChildren().addAll(PastAppLabel, PastAppList);
+        //past appointments button
+        Button PastAppButton = new Button("Open");
+        PastAppButton.setOnAction(e -> primaryStage.setScene(PastAppointmentsScene));
+        PastAppButton.setMaxWidth(400);
+        PastAppButton.setPadding(new Insets(10, 10, 10, 10));
+        
+        AssoHPBottPane.getChildren().addAll(PastAppLabel, PastAppList, PastAppButton);
         
         //-----------------------------------------------------------------
         //container for the logout button
@@ -832,6 +838,106 @@ public class SwiftMedicalClinicSys extends Application {
         BorderPane PastAppointmentsPane = new BorderPane();
         PastAppointmentsPane.setPadding(new Insets(30));
         
+        //-----------------------------------------------------------------
+        //creating upper left pane (vitals, allergies, and health concerns) 
+        
+        VBox UpLeftPane = new VBox();
+        UpLeftPane.setPrefSize(400, 250);
+        UpLeftPane.setSpacing(30);
+        UpLeftPane.setStyle("-fx-border-color: black");
+        UpLeftPane.setAlignment(javafx.geometry.Pos.CENTER); 
+        
+        Text UpLeftTitle = new Text("Vitals | Allergies | Health Concerns");
+        UpLeftTitle.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
+        BorderPane.setAlignment(UpLeftTitle, javafx.geometry.Pos.CENTER);
+        
+        UpLeftPane.getChildren().addAll(UpLeftTitle);
+        
+        //-----------------------------------------------------------------
+        //creating bottom left pane (Newly Prescribed Medications) 
+        VBox MedsPane = new VBox();
+        MedsPane.setPrefSize(400, 250);
+        MedsPane.setSpacing(30);
+        MedsPane.setStyle("-fx-border-color: black");
+        MedsPane.setAlignment(javafx.geometry.Pos.CENTER); 
+        
+        Text MedsTitle = new Text("Newly Prescribed Medications");
+        MedsTitle.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
+        BorderPane.setAlignment(MedsTitle, javafx.geometry.Pos.CENTER);
+        
+        MedsPane.getChildren().addAll(MedsTitle);
+
+        //-----------------------------------------------------------------
+        //creating upper right pane (Doctors Findings) 
+        VBox FindingsPane = new VBox();
+        FindingsPane.setPrefSize(400, 250);
+        FindingsPane.setSpacing(30);
+        FindingsPane.setStyle("-fx-border-color: black");
+        FindingsPane.setAlignment(javafx.geometry.Pos.CENTER); 
+        
+        Text FindingsTitle = new Text("Doctor's Findings");
+        FindingsTitle.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
+        BorderPane.setAlignment(FindingsTitle, javafx.geometry.Pos.CENTER);
+        
+        FindingsPane.getChildren().addAll(FindingsTitle);
+        
+        //-----------------------------------------------------------------
+        //creating bottom right pane (health issues, prescriptions, immunizations) 
+        VBox BottRightPane = new VBox();
+        BottRightPane.setPrefSize(400, 250);
+        BottRightPane.setSpacing(30);
+        BottRightPane.setStyle("-fx-border-color: black");
+        BottRightPane.setAlignment(javafx.geometry.Pos.CENTER); 
+        
+        Text BottRightTitle = new Text("Existing Health Issues | Prescriptions | Immunizations");
+        BottRightTitle.setFont(Font.font("Tahoma", FontWeight.BOLD, 15));
+        BorderPane.setAlignment(BottRightTitle, javafx.geometry.Pos.CENTER);
+        
+        BottRightPane.getChildren().addAll(BottRightTitle);   
+        
+        //-----------------------------------------------------------------
+        //container for the back to home button
+        HBox AssoHomeButtonPane = new HBox();
+        AssoHomeButtonPane.setSpacing(100);
+        AssoHomeButtonPane.setAlignment(javafx.geometry.Pos.BOTTOM_RIGHT);
+        
+        //buttons and their adjustments
+        Button AssoHomeButton = new Button("Back To Home Page");
+        AssoHomeButton.setOnAction(e -> primaryStage.setScene(AssociateHPScene));
+        AssoHomeButton.setMaxWidth(400);
+        AssoHomeButton.setPadding(new Insets(10, 10, 10, 10));
+                
+        AssoHomeButtonPane.getChildren().addAll(AssoHomeButton);     
+        
+        //-----------------------------------------------------------------
+        //setting left panes into one pane
+        VBox PastAppLeftPane = new VBox();
+        PastAppLeftPane.setSpacing(40);
+        PastAppLeftPane.setAlignment(javafx.geometry.Pos.CENTER); 
+        PastAppLeftPane.getChildren().addAll(UpLeftPane, MedsPane);
+        
+                
+        //-----------------------------------------------------------------
+        //setting right panes into one pane
+        VBox PastAppRightPane = new VBox();
+        PastAppRightPane.setSpacing(40);
+        PastAppRightPane.setAlignment(javafx.geometry.Pos.CENTER); 
+        PastAppRightPane.getChildren().addAll(FindingsPane, BottRightPane);
+        
+        //-----------------------------------------------------------------
+        //setting bottom pane
+        VBox PastAppBotttPane = new VBox();
+        PastAppBotttPane.setSpacing(40);
+        PastAppBotttPane.setAlignment(javafx.geometry.Pos.CENTER); 
+        PastAppBotttPane.getChildren().addAll(AssoHomeButtonPane);
+
+
+        //-----------------------------------------------------------------
+        //add the setting/bottom into the main pane
+        PastAppointmentsPane.setLeft(PastAppLeftPane);
+        PastAppointmentsPane.setRight(PastAppRightPane);
+        PastAppointmentsPane.setBottom(PastAppBotttPane);
+
         
         return PastAppointmentsPane;
     }
