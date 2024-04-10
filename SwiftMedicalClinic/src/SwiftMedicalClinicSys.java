@@ -1,5 +1,7 @@
 import javafx.application.Application;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -23,6 +25,7 @@ public class SwiftMedicalClinicSys extends Application {
     private Scene AssociateHPScene;
     private Scene AppointmentsScene;
     private Scene PastAppointmentsScene;
+    private Scene TestScene;
 
     @Override
     public void start(Stage primaryStage) {
@@ -56,6 +59,9 @@ public class SwiftMedicalClinicSys extends Application {
         
         BorderPane PastAppointmentsPane = PastAppointmentsPane();
         PastAppointmentsScene = new Scene(PastAppointmentsPane, 900, 600);
+        
+        GridPane TestPane = TestPane();
+        TestScene = new Scene(TestPane, 900, 600);
 
         // Set initial scene
         primaryStage.setScene(loginScenePL);
@@ -189,7 +195,7 @@ public class SwiftMedicalClinicSys extends Application {
         loginButton.setMaxWidth(400);
         loginButton.setPadding(new Insets(10, 10, 10, 10));
         Button patientLoginButton = new Button("Patient Login");
-        patientLoginButton.setOnAction(e -> primaryStage.setScene(loginSceneAsso));
+        patientLoginButton.setOnAction(e -> primaryStage.setScene(loginScenePL));
         patientLoginButton.setMaxWidth(400);
         patientLoginButton.setPadding(new Insets(10, 10, 10, 10));
         
@@ -614,16 +620,37 @@ public class SwiftMedicalClinicSys extends Application {
         PPortalBottPane.getChildren().addAll(Qs, PInsurance, PPharmacy);
         
         //-----------------------------------------------------------------
+        //container for the logout button
+        HBox PLogoutButtonPane = new HBox();
+        PLogoutButtonPane.setSpacing(100);
+        PLogoutButtonPane.setAlignment(javafx.geometry.Pos.BOTTOM_RIGHT);
+        
+        //buttons and their adjustments
+        Button PlogoutButton = new Button("Logout");
+        PlogoutButton.setOnAction(e -> primaryStage.setScene(loginScenePL));
+        PlogoutButton.setMaxWidth(400);
+        PlogoutButton.setPadding(new Insets(10, 10, 10, 10));
+                
+        PLogoutButtonPane.getChildren().addAll(PlogoutButton);    
+            
+        //-----------------------------------------------------------------
         //setting main panes into one pane
         HBox PPortalMainPane = new HBox();
         PPortalMainPane.setSpacing(40);
         PPortalMainPane.setAlignment(javafx.geometry.Pos.CENTER); 
         PPortalMainPane.getChildren().addAll(PrevVisitsPane, MsgPane);
+        
+        //-----------------------------------------------------------------
+        //setting bottom panes into one pane
+        HBox PPortalBottomPane = new HBox();
+        PPortalBottomPane.setSpacing(600);
+        PPortalBottomPane.setAlignment(javafx.geometry.Pos.CENTER); 
+        PPortalBottomPane.getChildren().addAll(PPortalBottPane, PLogoutButtonPane);
 
         //-----------------------------------------------------------------
         //add the setting/bottom into the main pane
         PatientPortalPane.setCenter(PPortalMainPane);
-        PatientPortalPane.setBottom(PPortalBottPane);
+        PatientPortalPane.setBottom(PPortalBottomPane);
 
         return PatientPortalPane;
     }
@@ -680,16 +707,40 @@ public class SwiftMedicalClinicSys extends Application {
         AssoHPBottPane.getChildren().addAll(PastAppLabel, PastAppList);
         
         //-----------------------------------------------------------------
+        //container for the logout button
+        HBox AssoLogoutButtonPane = new HBox();
+        AssoLogoutButtonPane.setSpacing(100);
+        AssoLogoutButtonPane.setAlignment(javafx.geometry.Pos.BOTTOM_RIGHT);
+        
+        //buttons and their adjustments
+        Button AssologoutButton = new Button("Logout");
+        AssologoutButton.setOnAction(e -> primaryStage.setScene(loginSceneAsso));
+        AssologoutButton.setMaxWidth(400);
+        AssologoutButton.setPadding(new Insets(10, 10, 10, 10));
+                
+        AssoLogoutButtonPane.getChildren().addAll(AssologoutButton);    
+            
+        
+        //-----------------------------------------------------------------
         //setting main panes into one pane
         HBox AssoHPMainPane = new HBox();
         AssoHPMainPane.setSpacing(40);
         AssoHPMainPane.setAlignment(javafx.geometry.Pos.CENTER); 
         AssoHPMainPane.getChildren().addAll(UpAppPane, MsgPane);
+        
+                
+        //-----------------------------------------------------------------
+        //setting bottom panes into one pane
+        HBox AssoPortalBottomPane = new HBox();
+        AssoPortalBottomPane.setSpacing(600);
+        AssoPortalBottomPane.setAlignment(javafx.geometry.Pos.CENTER); 
+        AssoPortalBottomPane.getChildren().addAll(AssoHPBottPane, AssoLogoutButtonPane);
+
 
         //-----------------------------------------------------------------
         //add the setting/bottom into the main pane
         AssociateHPPane.setCenter(AssoHPMainPane);
-        AssociateHPPane.setBottom(AssoHPBottPane);
+        AssociateHPPane.setBottom(AssoPortalBottomPane);
 
         return AssociateHPPane;
     }
@@ -741,6 +792,7 @@ public class SwiftMedicalClinicSys extends Application {
         ImmunizationText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
         
         Button TakeTest = new Button("Take Physical Test");
+        TakeTest.setOnAction(e -> primaryStage.setScene(TestScene));
         TakeTest.setMaxWidth(80);
         TakeTest.setPadding(new Insets(10, 10, 10, 10));
         
@@ -772,6 +824,7 @@ public class SwiftMedicalClinicSys extends Application {
         
         
         return AppointmentsPane;
+
     }
     
     private BorderPane PastAppointmentsPane() {
@@ -782,6 +835,58 @@ public class SwiftMedicalClinicSys extends Application {
         
         return PastAppointmentsPane;
     }
+
+    private GridPane TestPane() {
+        	GridPane grid = new GridPane();
+            grid.setAlignment(Pos.CENTER);
+            grid.setHgap(20);
+            grid.setVgap(10); 
+            grid.setPadding(new Insets(25, 25, 25, 25)); 
+
+            // Title 
+            Label titleLabel = new Label("Physical Test Assessment");
+            titleLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+            GridPane.setHalignment(titleLabel, HPos.CENTER);
+            
+            titleLabel.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
+            GridPane.setConstraints(titleLabel, 0, 0, 3, 1); 
+
+            // Findings Text Area
+            Label findingsLabel = new Label("Enter Findings:");
+            TextArea findingsInput = new TextArea();
+            findingsLabel.setFont(Font.font("Tahoma",10));
+            findingsInput.setPrefHeight(200);
+            GridPane.setConstraints(findingsLabel, 0, 1); 
+            GridPane.setConstraints(findingsInput, 0, 2); 
+
+            //Medicine Text Label
+            Label medicineLabel = new Label("Medicine to Prescribe:");
+            TextArea medicineInput = new TextArea();
+            medicineLabel.setFont(Font.font("Tahoma",10));
+            medicineInput.setPrefHeight(200);
+            GridPane.setConstraints(medicineLabel, 1, 1); 
+            GridPane.setConstraints(medicineInput, 1, 2); 
+
+            //Rec Text Area
+            Label recommendationsLabel = new Label("Recommendations:");
+            TextArea recommendationsInput = new TextArea();
+            recommendationsLabel.setFont(Font.font("Tahoma",10));
+            recommendationsInput.setPrefHeight(200);
+            GridPane.setConstraints(recommendationsLabel, 2, 1); 
+            GridPane.setConstraints(recommendationsInput, 2, 2); 
+
+            //Submit Button
+            Button submitButton = new Button("Submit");
+            submitButton.setStyle("-fx-font-size: 16px;");
+            submitButton.setFont(Font.font("Tahoma",0));
+            GridPane.setHalignment(submitButton, HPos.CENTER);
+            GridPane.setConstraints(submitButton, 0, 3, 3, 1); 
+
+            
+            grid.getChildren().addAll(titleLabel, findingsLabel, findingsInput, medicineLabel, medicineInput, recommendationsLabel, recommendationsInput, submitButton);
+
+            return grid;
+        }
     
     public static void main(String[] args) {
         launch(args);
